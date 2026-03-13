@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from ..database import DbSession
 from ..models import SkinProfile as SkinProfileModel
@@ -7,6 +7,8 @@ from ..schemas.quiz import (
     PersistSkinProfileResponse,
     SkinProfile,
     SunSafetyAnalysis,
+    GetSkinProfileRequest,
+    GetSkinProfileResponse,
 )
 from ..services import analyze_sun_safety
 
@@ -43,4 +45,37 @@ def add_skin_profile(
     return PersistSkinProfileResponse(
         id=str(record.id),
         email=record.user_email,
+    )
+
+
+@router.post(
+    "/skin-profile-by-email",
+    response_model=GetSkinProfileResponse,
+)
+def get_skin_profile_by_email(
+    payload: GetSkinProfileRequest,
+    db: DbSession,
+) -> GetSkinProfileResponse:
+    """
+    Fetch the most recent skin profile + analysis for a user by email.
+    The email is provided in the JSON request body.
+    """
+    record = (
+        db.query(SkinProfileModel)
+        .filter(SkinProfileModel.user_email == payload.email)
+        .order_by(SkinProfileModel.created_at.desc())
+        .first()
+    )
+
+    if record is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Skin profile not found for this email.",
+        )
+
+    return GetSkinProfileResponse(
+        id=str(record.id),
+        email=record.user_email,
+        quiz=record.quiz_response,
+        analysis=record.analysis_response,
     )

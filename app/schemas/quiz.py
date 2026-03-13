@@ -44,3 +44,22 @@ class PersistSkinProfileRequest(BaseModel):
 class PersistSkinProfileResponse(BaseModel):
     id: str
     email: str
+
+
+class GetSkinProfileRequest(BaseModel):
+    """
+    Request payload to fetch a skin profile by email.
+    """
+
+    email: str
+
+
+class GetSkinProfileResponse(BaseModel):
+    """
+    Full persisted skin profile + analysis for a user.
+    """
+
+    id: str
+    email: str
+    quiz: SkinProfile
+    analysis: SunSafetyAnalysis
