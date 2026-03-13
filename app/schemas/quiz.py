@@ -29,3 +29,18 @@ class SunSafetyAnalysis(BaseModel):
     vibe: SunSafetyVibe
     sections: List[SunSafetySection]
 
+
+class PersistSkinProfileRequest(BaseModel):
+    """
+    Payload sent after signup to persist a quiz + analysis
+    for a specific authenticated user, identified by email.
+    """
+
+    email: str
+    quiz: SkinProfile
+    analysis: SunSafetyAnalysis
+
+
+class PersistSkinProfileResponse(BaseModel):
+    id: str
+    email: str
