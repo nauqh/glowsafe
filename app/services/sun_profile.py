@@ -33,7 +33,6 @@ def analyze_sun_safety(profile: SkinProfile) -> SunSafetyAnalysis:
             },
         ],
         text_format=SunSafetyAnalysis,
-        max_output_tokens=400,
     )
 
     return response.output_parsed
