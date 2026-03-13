@@ -21,7 +21,7 @@ def analyze_sun_safety(profile: SkinProfile) -> SunSafetyAnalysis:
     payload = profile.model_dump()
 
     response = _client.responses.parse(
-        model="gpt-5.4",
+        model="gpt-5-mini-2025-08-07",
         input=[
             {
                 "role": "system",
