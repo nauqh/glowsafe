@@ -43,9 +43,9 @@ and sun habits. Generate a personal sun-safety analysis as a JSON object with th
 }
 
 Rules:
-- Each body paragraph should be 2–3 sentences. Enough to feel considered, not so long it becomes a lecture.
-- Total response should be 150–200 words across all three paragraphs.
-- Include at least 1 relevant link somewhere in the section bodies — an article or page about sun-safety or something related to what you’re saying (e.g. UV, sunscreen, habits). It doesn’t need to be a formal reference. Use markdown: [link text](https://...). Use a real, working URL.
+- Each body paragraph should be 1–2 sentences. Keep it tight and focused.
+- Total response should be 100–150 words across all three paragraphs.
+- You may include a relevant link somewhere in the section bodies — an article or page about sun-safety or something related to what you’re saying (e.g. UV, sunscreen, habits). It does not need to be a formal reference, and it is optional. If you include a link, use markdown: [link text](https://...) and a real, working URL.
 - Do not repeat field names or IDs from the JSON input. Use plain language only.
 - Do not mention skin cancer, melanoma, or disease by name. Focus on skin health, appearance, and feeling good.
 - Do not produce bullet points or numbered lists anywhere in the body text.
