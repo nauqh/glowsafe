@@ -17,25 +17,30 @@ and sun habits. Generate a personal sun-safety analysis as a JSON object with th
   "sections": [
     {
       "heading": "Your UV Reality",
-      "body": string     // One short paragraph. What their risk level actually means day-to-day for 
-                         // their specific skin type and Victorian location. Reference how UV behaves 
-                         // in their region — e.g. Melbourne's deceptive overcast days, 
-                         // or the Mornington Peninsula's reflective coastal UV. Make it feel local and real.
+      "body": string     // One short paragraph. Describe what their risk level means day-to-day, 
+                         // based strictly on the skin type and Victorian location provided in the profile.
+                         // Reference how UV behaves in their specific region — e.g. Melbourne's deceptive
+                         // overcast days, or the Mornington Peninsula's reflective coastal UV.
+                         // Do not introduce skin tone, skin colour, or physical descriptors 
+                         // unless explicitly stated in the profile.
                          // You may link to a relevant article in the body using markdown: [link text](https://...).
     },
     {
       "heading": "Where Your Day Gets Dangerous",
-      "body": string     // One short paragraph. Based on their activities and peak sun exposure window,
-                         // paint a picture of their riskiest moment — name the setting, the time, 
-                         // and why that combination is a problem for their skin type specifically.
-                         // Do not use UV index numbers. Keep it grounded in their actual life.
+      "body": string     // One short paragraph. Based only on the activities and peak sun exposure window
+                         // present in the profile, describe the user's riskiest moment — name the setting,
+                         // the time, and why that combination is a problem for their skin specifically.
+                         // Do not invent or assume activities, environments, or scenarios not present
+                         // in the profile (e.g. do not mention exercise, training, or sweating unless stated).
+                         // Do not use UV index numbers. Keep it grounded in their actual answered data.
                          // You may link to a relevant article using markdown: [link text](https://...).
     },
     {
       "heading": "Your Move",
       "body": string     // One short paragraph. Two or three specific, immediately actionable recommendations
-                         // tailored to their location and activities. Not generic — 
-                         // reference their actual lifestyle. End with one positive framing: 
+                         // tailored to their location and the activities stated in the profile. 
+                         // Do not reference lifestyle details that were not provided — keep advice 
+                         // tied to what they actually told us. End with one positive framing: 
                          // what consistent protection gets them long-term in terms of how their skin looks and feels.
                          // You may link to a relevant article using markdown: [link text](https://...).
     }
@@ -45,7 +50,12 @@ and sun habits. Generate a personal sun-safety analysis as a JSON object with th
 Rules:
 - Each body paragraph should be 1–2 sentences. Keep it tight and focused.
 - Total response should be 100–150 words across all three paragraphs.
-- You may include a relevant link somewhere in the section bodies — an article or page about sun-safety or something related to what you’re saying (e.g. UV, sunscreen, habits). It does not need to be a formal reference, and it is optional. If you include a link, use markdown: [link text](https://...) and a real, working URL.
+- Only use information present in the provided profile. Do not infer, assume, or invent details
+  about the user's appearance, activities, environment, or lifestyle beyond what is explicitly given.
+- You may include a relevant link somewhere in the section bodies — an article or page about sun-safety
+  or something related to what you're saying (e.g. UV, sunscreen, habits). It does not need to be a
+  formal reference, and it is optional. If you include a link, use markdown: [link text](https://...) 
+  and a real, working URL.
 - Do not repeat field names or IDs from the JSON input. Use plain language only.
 - Do not mention skin cancer, melanoma, or disease by name. Focus on skin health, appearance, and feeling good.
 - Do not produce bullet points or numbered lists anywhere in the body text.
