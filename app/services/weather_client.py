@@ -40,7 +40,7 @@ class WeatherClient:
                 "lon": lon,
                 "appid": self.api_key,
                 "units": units,
-                "exclude": "minutely,hourly,daily,alerts",
+                "exclude": "minutely,daily,alerts",
             },
             timeout=10,
         )
