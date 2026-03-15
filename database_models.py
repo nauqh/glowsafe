@@ -1,8 +1,11 @@
 from __future__ import annotations
 from datetime import UTC, datetime
+from requests import session
+from requests import session
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, ARRAY
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, Session, mapped_column, relationship
 from database import Base
+from app.schemas.quiz import SkinProfile
 
 class WeatherRecord(Base):
     __tablename__ = "weather_records"
@@ -51,3 +54,53 @@ class Recommendations(Base):
     protection_habits: Mapped[list[str]] = mapped_column(ARRAY(String), nullable=False)
     # LLM output
     response_text: Mapped[str] = mapped_column(Text, nullable=False)
+
+#adding the recommendation from llm to database
+def save_recommendation(session: Session,profile: SkinProfile,llm_response_text: str,) -> Recommendations:
+    record = Recommendations(
+        skin_type_id=profile.skinTypeId,
+        location_id=profile.locationId,
+        uv_risk_level=profile.uvRiskLevel,
+        burn_history=profile.burnHistory,
+        work_pattern=profile.workPattern,
+        peak_sun_exposure=profile.peakSunExposure,
+        sunscreen_frequency=profile.sunscreenFrequency,
+        activity_ids=profile.activityIds,
+        protection_habits=profile.protectionHabits,
+        response_text=llm_response_text,
+    )
+    session.add(record)
+    session.commit()
+    return record
+
+def save_weather(session: Session, weather_data: dict) -> WeatherRecord:
+    w = weather_data["weather"]
+    current = w["current"]
+    record = WeatherRecord(
+        city=weather_data["city"],
+        lat=w["lat"],
+        lon=w["lon"],
+        timezone=w["timezone"],
+        timezone_offset=w["timezone_offset"],
+        dt=current["dt"],
+        sunrise=current["sunrise"],
+        sunset=current["sunset"],
+        temp=current["temp"],
+        feels_like=current["feels_like"],
+        pressure=current["pressure"],
+        humidity=current["humidity"],
+        dew_point=current["dew_point"],
+        uvi=current["uvi"],
+        clouds=current["clouds"],
+        visibility=current["visibility"],
+        wind_speed=current["wind_speed"],
+        wind_deg=current["wind_deg"],
+        weather_id=current["weather"]["id"],
+        weather_main=current["weather"]["main"],
+        weather_description=current["weather"]["description"],
+        weather_icon=current["weather"]["icon"],
+    )
+
+    session.add(record)
+    session.commit()
+    return record
